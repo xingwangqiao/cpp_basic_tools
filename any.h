@@ -80,8 +80,7 @@ class class_A{
 };
 
 int main() {
-    int err = 0;
-    basic::Any test1();
+    basic::Any test1 basic::Any();
     if(test1){
         return -1;
     }
@@ -94,11 +93,7 @@ int main() {
     int* int_test3 = new int(0);
     basic::Any test3(int_test3);
     if(!test3 || (test3 != int_test3)){
-        err = -3;
-    }
-    delete int_test3;
-    if(err != 0){
-        return err;
+        return -3;
     }
 
     do {
