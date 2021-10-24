@@ -74,35 +74,3 @@ protected:
     std::shared_ptr<void> m_ptr_;
 };
 }
-
-class class_A{
-
-};
-
-int main() {
-    basic::Any test1 basic::Any();
-    if(test1){
-        return -1;
-    }
-
-    basic::Any test2(nullptr);
-    if(test2){
-        return -2;
-    }
-
-    int* int_test3 = new int(0);
-    basic::Any test3(int_test3);
-    if(!test3 || (test3 != int_test3)){
-        return -3;
-    }
-
-    do {
-    std::shared_ptr<class_A> class_test4 = std::make_shared<class_A>();
-    basic::Any test4(class_test4);
-    if(!test4 || (test4 != class_test4)){
-        return -4;
-    }
-    }while (false);
-
-    return 0;
-}
