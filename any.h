@@ -19,7 +19,7 @@ public:
     Any(std::shared_ptr<T> rhs) :m_ptr_(std::static_pointer_cast<void>(rhs)) { }
 
     template <typename T>
-    Any(T* ptr) : m_ptr_(std::shared_ptr<void>((void*)ptr)){ }
+    Any(T* ptr) : m_ptr_(std::static_pointer_cast<void>(std::shared_ptr<void>((T*)ptr))){ }
 
     Any& operator= (const Any& rhs) {
         if(&rhs == this)
