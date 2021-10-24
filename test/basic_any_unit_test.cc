@@ -34,6 +34,10 @@ TEST_F(BasicAnyUnitTest, ConstructionByPointer) {
     int* int_ptr = new int(0);
     basic::Any any(int_ptr);
     EXPECT_EQ(int_ptr, any.get<int>().get());
+
+    const int* c_int_ptr = new int(0);
+    basic::Any c_any(c_int_ptr);
+    EXPECT_EQ(c_int_ptr, c_any.get<int>().get());
 }
 
 TEST_F(BasicAnyUnitTest, ConstructionBySharedPointer) {
