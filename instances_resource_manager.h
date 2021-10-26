@@ -24,8 +24,8 @@ public:
     // stored resource that no instanceID
     std::shared_ptr<InstanceResources> getAnyResources();
 
-    std::vector<InstanceID> getInstanceIDOfAllResource(void* target, int key = 0);
-    InstanceID getInstanceIDOfFirstResource(void* target, int key = 0);
+    std::vector<InstanceID> getInstanceIDOfAllResource(std::string key, void* value);
+    InstanceID getInstanceIDOfFirstResource(std::string key, void* value);
 };
 }
 /**

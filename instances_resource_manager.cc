@@ -54,7 +54,7 @@ std::shared_ptr<InstanceResources> InstancesResourceManager::getAnyResources() {
     return ins_it->second;
 }
 
-std::vector<InstanceID> InstancesResourceManager::getInstanceIDOfAllResource(void* target, int key = 0) {
+std::vector<InstanceID> InstancesResourceManager::getInstanceIDOfAllResource(std::string key, void* value) {
     std::vector<InstanceID> ids;
     std::lock_guard<std::mutex> _(ManagerInstance()->m_mutex_);
     for(const auto& it : ManagerInstance()->manage_storage_) {
@@ -64,7 +64,7 @@ std::vector<InstanceID> InstancesResourceManager::getInstanceIDOfAllResource(voi
     return ids;
 }
 
-InstanceID InstancesResourceManager::getInstanceIDOfFirstResource(void* target, int key = 0) {
+InstanceID InstancesResourceManager::getInstanceIDOfFirstResource(std::string key, void* value) {
     std::lock_guard<std::mutex> _(ManagerInstance()->m_mutex_);
     for(const auto& it : ManagerInstance()->manage_storage_) {
         if(true /*it.second->search(resource)*/)
