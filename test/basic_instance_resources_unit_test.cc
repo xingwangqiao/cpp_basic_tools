@@ -17,7 +17,7 @@ public:
     }
 };
 
-TEST_F(InstanceResourcesTest, acess2InstanceResources) {
+TEST_F(InstanceResourcesTest, access2InstanceResources) {
     // create a storage of Instance
     basic::InstanceID ins_id = 1;
     basic::InstanceResources storage(ins_id);
@@ -41,6 +41,34 @@ TEST_F(InstanceResourcesTest, acess2InstanceResources) {
     storage.removeItem("testkey");
     EXPECT_FALSE(storage.hasValue("testkey"));
     basic::Any removed_any = storage.getValue("testkey");
-    EXPECT_FALSE(invalid_any);
+    EXPECT_FALSE(removed_any);
+
+    // clear storage
+    storage.setItem("key", new int(0));
+    EXPECT_FALSE(storage.empty());
+    storage.clear();
+    EXPECT_TRUE(storage.empty());
+    EXPECT_FALSE(storage.hasValue("key"));
+}
+
+TEST_F(InstanceResourcesTest, manageResourceWhenResourceIsItself) {
+    // create a storage of Instance
+    basic::InstanceID ins_id = 1;
+    basic::InstanceResources* storage = new basic::InstanceResources(ins_id);
+    EXPECT_TRUE(ins_id = storage->getInstanceID());
+
+    // stored itself
+    storage->setItem("this_storage", storage);
+
+    // get valid key-value
+    EXPECT_TRUE(storage->hasValue("this_storage"));
+    basic::Any storage_any = storage->getValue("this_storage");
+    EXPECT_TRUE(storage_any == storage);
+
+    // remove itself
+    storage->removeItem("this_storage");
+    EXPECT_FALSE(storage->hasValue("this_storage"));
+    basic::Any removed_any = storage->getValue("this_storage");
+    EXPECT_FALSE(removed_any);
 }
 }
