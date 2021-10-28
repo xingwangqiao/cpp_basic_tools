@@ -2,6 +2,7 @@
  * @brief 使用统一的类型用于管理频繁出现的 std::shared_ptr
  * 
  */
+#pragma once
 #include <memory>
 
 namespace basic {

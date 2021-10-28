@@ -15,8 +15,6 @@ public:
     void TearDown() override {
 
     }
-private:
-    int conut;
 };
 
 TEST_F(BasicAnyUnitTest, ConstructionByDefault) {
@@ -75,6 +73,10 @@ TEST_F(BasicAnyUnitTest, Assignment) {
     std::shared_ptr<int> s_ptr = std::make_shared<int>(0);
     any = s_ptr;
     EXPECT_TRUE(any == s_ptr);
+
+    basic::Any tmp_any(new int(0));
+    any = tmp_any;
+    EXPECT_TRUE(any == tmp_any);
 }
 
 }
