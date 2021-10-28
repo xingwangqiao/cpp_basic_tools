@@ -6,6 +6,11 @@ void InstanceResources::clear() {
     storage_.clear();
 }
 
+bool InstanceResources::empty() {
+    std::lock_guard<std::mutex> _(m_mutex_);
+    return storage_.empty();
+}
+
 void InstanceResources::setItem(ResourceTarget key, basic::Any value) {
     auto old_value = this->getValue(key);
     do {

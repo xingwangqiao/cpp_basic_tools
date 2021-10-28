@@ -25,6 +25,8 @@ public:
 
     void clear();
 
+    bool empty();
+
     void setItem(ResourceTarget key, basic::Any any);
     void removeItem(ResourceTarget key);
 
