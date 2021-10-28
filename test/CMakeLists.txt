@@ -21,7 +21,10 @@
 # set(BUILD_GMOCK ON CACHE BOOL "" FORCE)
 # FetchContent_MakeAvailable(gtest)
 
-# sources
+# basic tools sources
+file(GLOB BASIC_TOOLS_SRCS "${CMAKE_SOURCE_DIR}/*.h" "${CMAKE_SOURCE_DIR}/*.cc")
+
+# test sources
 file(GLOB TEST_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/*.h" "${CMAKE_CURRENT_SOURCE_DIR}/*.cc")
 
 # add_executable(${PROGETC_NAME} ${TEST_SRCS})
@@ -38,6 +41,10 @@ FetchContent_MakeAvailable(gtest)
 
 include_directories(${PROJECT_SOURCE_DIR}) 
 
+add_library(basic_tools_libraty STATIC
+    ${BASIC_TOOLS_SRCS}
+)
+
 add_executable(
     unit_tests
     ${TEST_SRCS}
@@ -47,6 +54,7 @@ add_executable(
 target_link_libraries(unit_tests
   PRIVATE
     gtest_main
+    basic_tools_libraty
   )
 
 # automatic discovery of unit tests
