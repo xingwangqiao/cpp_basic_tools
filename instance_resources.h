@@ -1,10 +1,12 @@
+#pragma once
 #include "any.h"
 
 #include <map>
 #include <mutex>
 
-#define InstanceID int
 namespace basic {
+// define instanceID type
+using InstanceID = intptr_t;
 class InstanceResources {
 public:
     using ResourceTarget = std::string;

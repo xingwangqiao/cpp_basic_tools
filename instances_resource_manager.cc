@@ -21,7 +21,7 @@ InstanceResourceManagerImpl* ManagerInstance() {
 InstanceID InstancesResourceManager::createStorage() {
     std::lock_guard<std::mutex> _(ManagerInstance()->m_mutex_);
     InstanceID id = ++ManagerInstance()->cur_alloc_instance_id_;
-    std::shared_ptr<InstanceResources> clear_store= std::make_shared<InstanceResources>();
+    std::shared_ptr<InstanceResources> clear_store= std::make_shared<InstanceResources>(id);
     ManagerInstance()->manage_storage_[id] = clear_store;
     return id;
 }
@@ -47,7 +47,7 @@ std::shared_ptr<InstanceResources> InstancesResourceManager::getAnyResources() {
     std::lock_guard<std::mutex> _(ManagerInstance()->m_mutex_);
     auto ins_it = ManagerInstance()->manage_storage_.find(ANY_SRC_INSTANCE_ID);
     if(ins_it == ManagerInstance()->manage_storage_.end()) {
-        std::shared_ptr<InstanceResources> storage = std::make_shared<InstanceResources>();
+        std::shared_ptr<InstanceResources> storage = std::make_shared<InstanceResources>(ANY_SRC_INSTANCE_ID);
         ManagerInstance()->manage_storage_[ANY_SRC_INSTANCE_ID] = storage;
         return storage;
     }
@@ -58,7 +58,7 @@ std::vector<InstanceID> InstancesResourceManager::getInstanceIDOfAllResource(std
     std::vector<InstanceID> ids;
     std::lock_guard<std::mutex> _(ManagerInstance()->m_mutex_);
     for(const auto& it : ManagerInstance()->manage_storage_) {
-        if(true /*it.second->search(resource)*/)
+        if(it.second->hasValue(key) && it.second->getValue(key) == value)
             ids.push_back(it.first);
     }
     return ids;
@@ -67,7 +67,7 @@ std::vector<InstanceID> InstancesResourceManager::getInstanceIDOfAllResource(std
 InstanceID InstancesResourceManager::getInstanceIDOfFirstResource(std::string key, void* value) {
     std::lock_guard<std::mutex> _(ManagerInstance()->m_mutex_);
     for(const auto& it : ManagerInstance()->manage_storage_) {
-        if(true /*it.second->search(resource)*/)
+        if(it.second->hasValue(key) && it.second->getValue(key) == value)
             return it.first;
     }
     return INVAILD_INSTANCE_ID;

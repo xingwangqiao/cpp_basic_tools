@@ -1,15 +1,12 @@
 /**
  * @brief manage resources of instance just like pointer
  */
+#pragma once
 #include "any.h"
+#include "instance_resources.h"
 
 #include <vector>
 #include <map>
-
-// tmp define
-#define InstanceResources int
-#define InstanceID int
-// end tmp define
 
 namespace basic {
 class InstancesResourceManager {
@@ -17,15 +14,15 @@ public:
     InstancesResourceManager() = default;
     ~InstancesResourceManager() = default;
 
-    InstanceID createStorage();
-    void destroyStorage(InstanceID);
+    static InstanceID createStorage();
+    static void destroyStorage(InstanceID);
 
-    std::shared_ptr<InstanceResources> getResources(InstanceID id);
+    static std::shared_ptr<InstanceResources> getResources(InstanceID id);
     // stored resource that no instanceID
-    std::shared_ptr<InstanceResources> getAnyResources();
+    static std::shared_ptr<InstanceResources> getAnyResources();
 
-    std::vector<InstanceID> getInstanceIDOfAllResource(std::string key, void* value);
-    InstanceID getInstanceIDOfFirstResource(std::string key, void* value);
+    static std::vector<InstanceID> getInstanceIDOfAllResource(std::string key, void* value);
+    static InstanceID getInstanceIDOfFirstResource(std::string key, void* value);
 };
 }
 /**
