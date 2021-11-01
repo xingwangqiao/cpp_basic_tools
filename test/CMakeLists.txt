@@ -23,6 +23,7 @@
 
 # basic tools sources
 file(GLOB BASIC_TOOLS_SRCS "${CMAKE_SOURCE_DIR}/*.h" "${CMAKE_SOURCE_DIR}/*.cc")
+file(GLOB BASIC_TOOLS_LOG_SRCS "${CMAKE_SOURCE_DIR}/log/*.h" "${CMAKE_SOURCE_DIR}/log/*.cc")
 
 # test sources
 file(GLOB TEST_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/*.h" "${CMAKE_CURRENT_SOURCE_DIR}/*.cc")
@@ -43,6 +44,7 @@ include_directories(${PROJECT_SOURCE_DIR})
 
 add_library(basic_tools_libraty STATIC
     ${BASIC_TOOLS_SRCS}
+    ${BASIC_TOOLS_LOG_SRCS}
 )
 
 add_executable(
